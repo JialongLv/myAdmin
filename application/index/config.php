@@ -9,10 +9,20 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-use think\Route;
+return [
+    // +----------------------------------------------------------------------
+    // | 应用设置
+    // +----------------------------------------------------------------------
+    'template'               => [
+        // 模板引擎类型 支持 php think 支持扩展
+        'view_suffix'  => 'html',
+    ],
 
+    'view_replace_str'  =>  [
+    '__PUBLIC__'=>'/public/',
+    '__ROOT__' => '/',
+    '__ADMIN__' => 'http://127.0.0.1/myAdmin/public/static/index',
+    ],
 
-//Route::get('index/banner/:id','index/Banner/getBanner');
-//Route::get('index/editBanner/:id','index/Banner/editBanner');
-
-
+    
+];

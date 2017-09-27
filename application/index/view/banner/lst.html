@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html><head>
+	    <meta charset="utf-8">
+    <title>推荐管理</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__ADMIN__ /style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__ /style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__ /style/weather-icons.css" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__ADMIN__ /style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__ /style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__ /style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__ /style/animate.css" rel="stylesheet">
+    
+</head>
+<body>
+	<!-- 头部 -->
+	{include file="public/top"/}
+
+	<!-- /头部 -->
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			            <!-- Page Sidebar -->
+            <div class="page-sidebar" id="sidebar">
+                <!-- Page Sidebar Header-->
+                <div class="sidebar-header-wrapper">
+                    <input class="searchinput" type="text">
+                    <i class="searchicon fa fa-search"></i>
+                    <div class="searchhelper">Search Reports, Charts, Emails or Notifications</div>
+                </div>
+                <!-- /Page Sidebar Header -->
+                <!-- Sidebar Menu -->
+                 {include file="public/left" /}
+                <!-- /Sidebar Menu -->
+            </div>
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                                        <li>
+                        <a href="#">系统</a>
+                    </li>
+                                        <li class="active">推荐管理</li>
+                                        </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+             
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+<button type="button" tooltip="添加管理员" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('article/add')}'"> <i class="fa fa-plus"></i> Add
+</button>
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="flip-scroll">
+                <form action="" method="post">
+                    <table class="table table-bordered table-hover">
+                        <thead class="">
+                            <tr>
+                                <th class="text-center" width="10%">ID</th>
+                                <th class="text-center" width="10%">标题</th>
+                                 <th class="text-center" width="10%">推荐缩略图</th>
+                                <th class="text-center">推荐商品名</th>
+                                <th class="text-center">商品缩略图</th>
+                              
+                                <th class="text-center" width="20%">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {volist name='banner' id="ban"}
+                        <tr>
+                            <td align="center">{$ban.id}</td>
+                            <td align="center">{$ban.name}</td>
+                            <td align="center">
+                                {if condition="$ban.img['url'] neq ''"}
+                                <img src="{$ban.img['url']}" height="80">
+                                {else/}
+                                暂无缩略图
+                                {/if}
+                            </td>
+                            <td align="center">{$ban.product['name']}</td>
+                            <td align="center">
+                                {if condition="$ban.product['main_img_url'] neq ''"}
+                                <img src="{$ban.product['main_img_url']}" height="80">
+                                {else/}
+                                暂无缩略图
+                                {/if}
+                            </td>
+                            <td align="center" style="vertical-align: middle;">
+                                <a href="{:url('editBanner',array('id'=>$ban['key_word']))}" class="btn btn-primary btn-sm shiny">
+                                    <i class="fa fa-edit"></i> 更新
+                                </a>
+                                <a href="#"  class="btn btn-danger btn-sm shiny">
+                                    <i class="fa fa-trash-o"></i> 查看
+                                </a>
+                            </td>
+                        </tr>
+                        {/volist}
+
+                        </tbody>
+                    </table>
+                    
+                    </form>
+                </div>
+
+                
+                <div>
+                	                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+		</div>	
+	</div>
+
+	    <!--Basic Scripts-->
+    <script src="__ADMIN__ /style/jquery_002.js"></script>
+    <script src="__ADMIN__ /style/bootstrap.js"></script>
+    <script src="__ADMIN__ /style/jquery.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__ADMIN__ /style/beyond.js"></script>
+    
+
+
+</body></html>
