@@ -6,5 +6,5 @@
  * Time: 22:35
  */
 return[
-    'img_prefix' => 'https://www.666guang.com/images'
+    'img_prefix' => 'http://ma.cn/images/'
 ];

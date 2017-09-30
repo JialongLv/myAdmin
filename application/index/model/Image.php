@@ -11,7 +11,7 @@ namespace app\index\model;
 
 class Image extends BaseModel
 {
-    protected $hidden = ['id','from','delete_time','update_time'];
+    protected $hidden = ['from','delete_time','update_time'];
 
     public function getUrlAttr($value,$data){
         return $this->prefixImgUrl($value,$data);
