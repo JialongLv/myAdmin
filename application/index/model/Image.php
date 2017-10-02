@@ -11,7 +11,45 @@ namespace app\index\model;
 
 class Image extends BaseModel
 {
-    protected $hidden = ['from','delete_time','update_time'];
+
+   public static function upload(){
+       $files = request()->file('Pimg');
+       $data = array();
+       foreach($files as $file){
+           $info = $file->rule('uniqid')->move('C:\wamp64\www\WeChatShop\public\images');
+           if ($info){
+
+                     $url=$info->getSaveName();
+                     $data[]=$url;
+           }
+       }
+
+       return $data;
+   }
+//
+//        public function upload(){
+//
+//             $files = request()->file('Pimg');
+////                    var_dump($files);die;
+//            $data = array();
+//            foreach($files as $file){
+//////                var_dump($file);die;
+////                $file = $files[];
+//                $info = $file->rule('uniqid')->move('C:\wamp64\www\WeChatShop\public\images');
+////                $data['url'] = $info ;
+//                if ($info) {
+////                     $data = array();
+//                     $url=$info->getSaveName();
+//                     $data[]=$url;
+//
+//                }
+//            }
+//
+//           return $data;
+//        };
+
+
+
 
     public function getUrlAttr($value,$data){
         return $this->prefixImgUrl($value,$data);

@@ -17,4 +17,15 @@ class ProductImage extends BaseModel
         return $this->belongsTo('Image', 'img_id', 'id');
     }
 
+    public static function getImgUrl($id){
+        $ImgUrl = db('product_image')
+            ->alias('p')
+            ->join('image i','p.img_id=i.id')
+            ->where('product_id',$id)
+            ->field('i.id')
+            ->select();
+        //$ImgUrl0 = self::with('imgUrl')->field(imgUrl.url)->where('product_id',$id)->select();
+        return $ImgUrl;
+    }
+
 }

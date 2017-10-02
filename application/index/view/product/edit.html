@@ -74,11 +74,12 @@
             </div>
             <div class="widget-body">
                 <div id="horizontal-form">
-                    <form class="form-horizontal" role="form" action="{:url('Product/addProduct')}" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal" role="form" action="{:url('Product/editProduct')}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="{$editProduct.id}">
                      <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">商品名称</label>
                             <div class="col-sm-6">
-                                <input class="form-control"  placeholder="" name="name"  type="text">
+                                <input class="form-control"  placeholder="" value="{$editProduct.name}" name="name"  type="text">
                             </div>
                             <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
@@ -86,7 +87,7 @@
                          <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">商品价格</label>
                             <div class="col-sm-6">
-                                <input class="form-control"  placeholder="" name="price"  type="text">
+                                <input class="form-control"  placeholder="" value="{$editProduct.price}" name="price"  type="text">
                             </div>
                             <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
@@ -94,7 +95,7 @@
                          <div class="form-group">
                         <label for="username" class="col-sm-2 control-label no-padding-right">商品库存</label>
                         <div class="col-sm-6">
-                            <input class="form-control"  placeholder="" name="stock"  type="int">
+                            <input class="form-control"  placeholder="" value="{$editProduct.stock}" name="stock"  type="int">
                         </div>
                         <p class="help-block col-sm-4 red">* 必填</p>
                     </div>
@@ -102,7 +103,7 @@
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">品名</label>
                             <div class="col-sm-6">
-                                <input class="form-control"  placeholder="" name="Pname"  type="int">
+                                <input class="form-control"  placeholder=""  value="<?php echo $editProduct['properties'][0]['detail']; ?>" name="Pname"  type="int">
                             </div>
                             <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
@@ -112,7 +113,7 @@
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">产地</label>
                             <div class="col-sm-6">
-                                <input class="form-control"  placeholder="" name="where"  type="int">
+                                <input class="form-control"  placeholder="" value="<?php echo $editProduct['properties'][1]['detail']; ?>" name="where"  type="int">
                             </div>
                             <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
@@ -120,7 +121,7 @@
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">净含量</label>
                             <div class="col-sm-6">
-                                <input class="form-control"  placeholder="" name="weight"  type="int">
+                                <input class="form-control"  placeholder="" value="<?php echo $editProduct['properties'][2]['detail']; ?>" name="weight"  type="int">
                             </div>
                             <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
@@ -128,7 +129,7 @@
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">保质期</label>
                             <div class="col-sm-6">
-                                <input class="form-control"  placeholder="" name="period"  type="int">
+                                <input class="form-control"  placeholder="" value="<?php echo $editProduct['properties'][3]['detail']; ?>" name="period"  type="int">
                             </div>
                             <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
@@ -138,9 +139,8 @@
                             <label for="cateid" class="col-sm-2 control-label no-padding-right">所属栏目</label>
                             <div class="col-sm-6">
                                 <select name="category_id">
-
                                     {volist name="cateres" id="cate"}
-                                    <option value="{$cate.id}">{$cate.name}</option>
+                                    <option {if condition="$cate['id'] eq $editProduct.category_id"}selected="selected"{/if} value="{$editProduct.category_id}">{$cate.name}</option>
                                     {/volist}
                                 </select>
                             </div>
@@ -151,30 +151,26 @@
                          <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">商品首图</label>
                             <div class="col-sm-6">
-                                <input   placeholder="" name="main_img_url"  type="file">
+                                <input style="float:left;"  placeholder="" name="main_img_url" type="file" >
+                                {if condition="$editProduct.main_img_url neq ''"}
+                                <img style="float:left;" src="{$editProduct.main_img_url}" width="220">
+                                {else /}
+                                暂无缩略图
+                                {/if}
                             </div>
                             
                         </div>
 
-                        <div class="form-group">
-                            <label for="username" class="col-sm-2 control-label no-padding-right">商品介绍图</label>
-                            <div class="col-sm-6">
-                                <input   placeholder="" name="Pimg[]"  type="file">
-                            </div>
-
-                        </div>
-                        <div class="form-group">
-                            <label for="username" class="col-sm-2 control-label no-padding-right">商品介绍图</label>
-                            <div class="col-sm-6">
-                                <input   placeholder="" name="Pimg[]"  type="file">
-                            </div>
-
-                        </div>
 
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">商品介绍图</label>
                             <div class="col-sm-6">
-                                <input   placeholder="" name="Pimg[]"  type="file">
+                                <input style="float:left;"  placeholder="" name="Pimg[]" type="file" >
+                                {if condition="$editProduct['imgs'][0]['img_url']['url'] neq ''"}
+                                <img style="float:left;" src="<?php echo $editProduct['imgs'][0]['img_url']['url']; ?>" width="220">
+                                {else /}
+                                暂无缩略图
+                                {/if}
                             </div>
 
                         </div>
@@ -182,15 +178,12 @@
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">商品介绍图</label>
                             <div class="col-sm-6">
-                                <input   placeholder="" name="Pimg[]"  type="file">
-                            </div>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label for="username" class="col-sm-2 control-label no-padding-right">商品介绍图</label>
-                            <div class="col-sm-6">
-                                <input   placeholder="" name="Pimg[]"  type="file">
+                                <input style="float:left;"  placeholder="" name="Pimg[]" type="file" >
+                                {if condition="$editProduct['imgs'][1]['img_url']['url'] neq ''"}
+                                <img style="float:left;" src="<?php echo $editProduct['imgs'][1]['img_url']['url']; ?>" width="220">
+                                {else /}
+                                暂无缩略图
+                                {/if}
                             </div>
 
                         </div>
@@ -204,9 +197,19 @@
 
 
 
-                       
 
-                        
+
+
+
+
+
+
+
+
+
+
+
+
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <button type="submit" class="btn btn-default">保存信息</button>

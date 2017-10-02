@@ -15,6 +15,7 @@ class Product extends BaseModel
     protected static function init()
     {
         Product::event('before_insert',function($data){
+
             if ($_FILES['main_img_url']['tmp_name']) {
                 $file = request()->file('main_img_url');
                 $info = $file->move('C:\wamp64\www\WeChatShop\public\images');
@@ -24,19 +25,37 @@ class Product extends BaseModel
                 }
             }
 
-//            if ($_FILES['main_img_url']['tmp_name']) {
-//                $file = request()->file('main_img_url');
-//                $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
-//                if ($info) {
-//                    $main_img_url='/WeChatShop/'. 'public' . DS . 'images' .'/'.$info->getSaveName();
-//                    $data['main_img_url'] = $main_img_url;
-//                }
-//            }
         });
+
+
+        Product::event('before_update',function ($data) {
+            if ($_FILES['main_img_url']['tmp_name']) {
+                $Product=Product::find($data->id);
+                $info = 'C:\wamp64\www\WeChatShop\public\images';
+                $main_img_url = $info.$Product['main_img_url'];
+                if (file_exists($main_img_url)){
+                    @unlink($main_img_url);
+                }
+                $file = request()->file('main_img_url');
+                $info = $file->move('C:\wamp64\www\WeChatShop\public\images');
+                if ($info) {
+                    $main_img_url = $info->getSaveName();
+                    $data['main_img_url'] = $main_img_url;
+                }
+
+
+            }
+
+
+        });
+
+
     }
 
+
+
     protected $hidden = [
-        'delete_time', 'main_img_id', 'pivot', 'from', 'category_id',
+        'delete_time', 'main_img_id', 'pivot', 'from',
         'create_time', 'update_time'];
 
     public function getMainImgUrlAttr($value,$data){
@@ -59,13 +78,15 @@ class Product extends BaseModel
         $product = self::with([
             'imgs' => function($query){
                 $query->with(['imgUrl'])
-                    ->order('order','asc');
+                    ->order('id','asc');
             }
         ])
             ->with(['properties'])
             ->find($id);
         return $product;
     }
+
+
 
     public static function getAll(){
         $products = self::with('cate')->select();
