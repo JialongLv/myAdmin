@@ -91,11 +91,11 @@
 
 
                             <td align="center" style="vertical-align: middle;">
-                                <a href="{:url('editBanner',array('id'=>$cate.id))}" class="btn btn-primary btn-sm shiny">
+                                <a href="{:url('editCate',array('id'=>$cate.id))}" class="btn btn-primary btn-sm shiny">
                                     <i class="fa fa-edit"></i> 更新
                                 </a>
-                                <a href="#"  class="btn btn-danger btn-sm shiny">
-                                    <i class="fa fa-trash-o"></i> 查看
+                                <a href="{:url('delCate',array('id'=>$cate.id))}"  class="btn btn-danger btn-sm shiny">
+                                    <i class="fa fa-trash-o"></i> 删除
                                 </a>
                             </td>
                         </tr>

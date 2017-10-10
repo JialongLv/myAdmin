@@ -29,9 +29,7 @@ class Product extends Controller
         if (request()->isPost()) {
 
             $data=input('post.');
-//            var_dump($_FILES);die;
             $Product=new ProductModel();
-
 
             $Product->data([
                 'name' => $data['name'],
@@ -39,8 +37,6 @@ class Product extends Controller
                 'stock'=> $data['stock'],
                 'category_id'=> $data['category_id'],
                 'main_img_url'=> $_FILES['main_img_url']['name']
-
-
             ]);
             $save=$Product->save();
 
@@ -53,15 +49,11 @@ class Product extends Controller
            ];
             $ProductPropertySave = $ProductProperty->saveAll($list);
 
-
                     $imageData = Image::upload();
-//                    var_dump($imageData);die;
                     foreach ($imageData as $url) {
-
                         $Image = new Image();
                         $Image->data(['url'=>$url]);
                         $Image->save();
-
                         $ProductImage = new ProductImage();
                         $data =(['img_id'=>$Image->id, 'product_id'=>$Product->id]);
                         $ProductImage->save($data);
@@ -81,13 +73,13 @@ class Product extends Controller
         return view('add');
     }
 
-    public function getProductDetail($id=11){
-        $product = ProductModel::getProductDetail($id);
-        return json($product); die;
-    }
+
 
     public function del(){
-        if (ProductModel::destroy(input('id'))){
+        $ProductDel = ProductModel::destroy(input('id'));
+        $ProductPropertyDel = ProductPropertyModel::destroy(['product_id' =>input('id')]);
+        $ProductImage = ProductImageModel::delImgUrl(input('id'));
+        if ($ProductDel && $ProductPropertyDel && $ProductImage){
             $this->success('删除商品成功',url('getProduct'));
         }else{
             $this->error('删除商品失败');
@@ -97,36 +89,25 @@ class Product extends Controller
 
     public function editProduct($id){
         if (request()->isPost()) {
-
             $data=input('post.');
-//            var_dump($_FILES);die;
-            $Product= new ProductModel();
-            $save = $Product->where('id',$data['id'])->update([
-                'name' => $data['name'],
+            $Product = new ProductModel();
+            $save = $Product::update(['id'=>$data['id'],'name' => $data['name'],
                 'price'=> $data['price'],
                 'stock'=> $data['stock'],
                 'category_id'=> $data['category_id'],
                 ]);
 
-
-
             $ProductProperty = new ProductPropertyModel();
             $ProductPropertyId = $ProductProperty->where('product_id',$data['id'])->select();
-
             $list = [
                 ['id'=>$ProductPropertyId[0]['id'],'name'=>'品名', 'detail' => $data['Pname'],'product_id'=>$data['id']],
                 ['id'=>$ProductPropertyId[1]['id'],'name'=>'产地', 'detail' => $data['where'],'product_id'=>$data['id']],
                 ['id'=>$ProductPropertyId[2]['id'],'name'=>'净含量', 'detail' => $data['weight'],'product_id'=>$data['id']],
                 ['id'=>$ProductPropertyId[3]['id'],'name'=>'保质期', 'detail' => $data['period'],'product_id'=>$data['id']],
             ];
-
             $ProductPropertySave = $ProductProperty->saveAll($list);
-
-
            $imgIds = ProductImageModel::getImgUrl($data['id']);
             $imgUrls = Image::upload();
-//            $imgId = (object)$imgUrls;
-//            var_dump($imgId);die;
             if ($imgUrls){
                 foreach ($imgIds as $key => $id){
                     $Image = Image::get($id);
@@ -134,8 +115,6 @@ class Product extends Controller
                     $Image->save();
                 }
             }
-
-
             if (($save != null) || ($ProductPropertySave != null) ) {
                 $this->success('更新商品成功！',url('getProduct'));
             }else{
@@ -143,12 +122,9 @@ class Product extends Controller
             }
             return;
         }
-
         $editProduct = ProductModel::getProductDetail($id);
-
         $cate =  new CategoryModel();
         $cateres = $cate->select();
-
         $this->assign(array(
             'editProduct' => $editProduct,
             'cateres' => $cateres

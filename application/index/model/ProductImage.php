@@ -28,4 +28,15 @@ class ProductImage extends BaseModel
         return $ImgUrl;
     }
 
+    public static function delImgUrl($id){
+        $ImgUrl = db('product_image')->where('product_id',$id)->field('img_id')->select();
+//        var_dump($ImgUrl);die;
+        foreach ($ImgUrl as $value ){
+            Image::destroy($value['img_id']);
+        }
+
+        $ProductImgDel = db('product_image')->where('product_id',$id)->delete();
+        return $ProductImgDel;
+    }
+
 }

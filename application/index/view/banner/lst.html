@@ -68,8 +68,8 @@
                     <table class="table table-bordered table-hover">
                         <thead class="">
                             <tr>
+
                                 <th class="text-center" width="10%">ID</th>
-                                <th class="text-center" width="10%">标题</th>
                                  <th class="text-center" width="10%">推荐缩略图</th>
                                 <th class="text-center">推荐商品名</th>
                                 <th class="text-center">商品缩略图</th>
@@ -81,7 +81,6 @@
                         {volist name='banner' id="ban"}
                         <tr>
                             <td align="center">{$ban.id}</td>
-                            <td align="center">{$ban.name}</td>
                             <td align="center">
                                 {if condition="$ban.img['url'] neq ''"}
                                 <img src="{$ban.img['url']}" height="80">

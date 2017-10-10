@@ -24,34 +24,33 @@ class Product extends BaseModel
                     $data['main_img_url'] = $main_img_url;
                 }
             }
-
         });
 
-
-        Product::event('before_update',function ($data) {
-            if ($_FILES['main_img_url']['tmp_name']) {
-                $Product=Product::find($data->id);
-                $info = 'C:\wamp64\www\WeChatShop\public\images';
-                $main_img_url = $info.$Product['main_img_url'];
-                if (file_exists($main_img_url)){
-                    @unlink($main_img_url);
-                }
-                $file = request()->file('main_img_url');
-                $info = $file->move('C:\wamp64\www\WeChatShop\public\images');
-                if ($info) {
-                    $main_img_url = $info->getSaveName();
-                    $data['main_img_url'] = $main_img_url;
-                }
-
-
+        Product::event('before_update',function($data){
+        if($_FILES['main_img_url']['tmp_name']){
+            $file = request()->file('main_img_url');
+            $info = $file->move('C:\wamp64\www\WeChatShop\public\images');
+            if($info){
+                $main_img_url=$info->getSaveName();
+                $data['main_img_url'] = $main_img_url;
+                 return $data;
             }
-
-
+        }
         });
-
-
     }
 
+    public static function upload(){
+
+        if($_FILES['main_img_url']['tmp_name']){
+            $file = request()->file('main_img_url');
+            $info = $file->move('C:\wamp64\www\WeChatShop\public\images');
+            if($info){
+                $main_img_url=$info->getSaveName();
+                $data = $main_img_url;
+                return $data;
+            }
+        }
+    }
 
 
     protected $hidden = [
@@ -86,23 +85,10 @@ class Product extends BaseModel
         return $product;
     }
 
-
-
     public static function getAll(){
         $products = self::with('cate')->select();
         return $products;
     }
-
-//    public static function addProduct($data){
-//
-//      $product = self::create($data);
-//
-//        if ($products){
-//            return true;
-//        }else{
-//            return false;
-//        }
-//    }
 
 
 }

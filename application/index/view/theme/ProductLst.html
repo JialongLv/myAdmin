@@ -67,49 +67,40 @@
                 <form action="" method="post">
                     <table class="table table-bordered table-hover">
                         <thead class="">
+                        <tr>
+                            <th class="text-center" width="10%">{$themes.name}商品</th>
+                        </tr>
                             <tr>
                                 <th class="text-center" width="10%">ID</th>
-                                <th class="text-center" width="10%">专题名</th>
-                                <th class="text-center" width="10%">专题描述</th>
-                                 <th class="text-center" width="10%">专题首图</th>
-                                <th class="text-center" width="10%">专题头图</th>
+                                <th class="text-center" width="10%">商品名</th>
+                                <th class="text-center" width="10%">商品价格</th>
+                                 <th class="text-center" width="10%">缩略图</th>
+
                               
                                 <th class="text-center" width="20%">操作</th>
                             </tr>
                         </thead>
                         <tbody>
-                        {volist name='theme' id="theme"}
+                        {volist name='$themes.products' id="product"}
                         <tr>
-                            <td align="center">{$theme.id}</td>
-                            <td align="center">{$theme.name}</td>
-                            <td align="center">{$theme.description}</td>
+                            <td align="center">{$product.id}</td>
+                            <td align="center">{$product.name}</td>
+                            <td align="center">{$product.price}</td>
                             <td align="center">
-                                {if condition="$theme.img['url'] neq ''"}
-                                <img src="{$theme.img['url']}" height="80">
+                                {if condition="$product.main_img_url neq ''"}
+                                <img src="{$product.main_img_url}" height="80">
                                 {else/}
                                 暂无缩略图
                                 {/if}
                             </td>
-                            <td align="center">
-                                {if condition="$theme.himg['url'] neq ''"}
-                                <img src="{$theme.himg['url']}" height="80">
-                                {else/}
-                                暂无缩略图
-                                {/if}
-                            </td>
-
 
                             <td align="center" style="vertical-align: middle;">
-                                <a href="{:url('editTheme',array('id'=>$theme.id))}" class="btn btn-primary btn-sm shiny">
-                                    <i class="fa fa-edit"></i> 更新专题
-                                </a>
-                                <a href="{:url('getThemeDetail',array('id'=>$theme.id))}"  class="btn btn-danger btn-sm shiny">
-                                    <i class="fa fa-trash-o"></i> 查看商品
-                                </a>
-                                <a href="{:url('getThemeDetail',array('id'=>$theme.id))}" class="btn btn-primary btn-sm shiny">
-                                    <i class="fa fa-edit"></i> 添加商品
+                                <a href="{:url('delProduct',array('id'=>$themes.id,'$productId'=>$product.id))}"  class="btn btn-danger btn-sm shiny">
+                                    <i class="fa fa-trash-o"></i> 移除
                                 </a>
                             </td>
+
+
                         </tr>
                         {/volist}
 

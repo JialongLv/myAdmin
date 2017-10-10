@@ -151,7 +151,7 @@
                          <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">商品首图</label>
                             <div class="col-sm-6">
-                                <input style="float:left;"  placeholder="" name="main_img_url" type="file" >
+                                <input style="float:left;"  placeholder="" name="main_img_url" value="{$editProduct.main_img_url}" type="file" >
                                 {if condition="$editProduct.main_img_url neq ''"}
                                 <img style="float:left;" src="{$editProduct.main_img_url}" width="220">
                                 {else /}
@@ -165,7 +165,7 @@
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">商品介绍图</label>
                             <div class="col-sm-6">
-                                <input style="float:left;"  placeholder="" name="Pimg[]" type="file" >
+                                <input style="float:left;"  placeholder="" name="Pimg[]" value="<?php echo $editProduct['imgs'][0]['img_url']['url']; ?>" type="file" >
                                 {if condition="$editProduct['imgs'][0]['img_url']['url'] neq ''"}
                                 <img style="float:left;" src="<?php echo $editProduct['imgs'][0]['img_url']['url']; ?>" width="220">
                                 {else /}
@@ -178,7 +178,7 @@
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">商品介绍图</label>
                             <div class="col-sm-6">
-                                <input style="float:left;"  placeholder="" name="Pimg[]" type="file" >
+                                <input style="float:left;"  placeholder="" name="Pimg[]" value="<?php echo $editProduct['imgs'][1]['img_url']['url']; ?>" type="file" >
                                 {if condition="$editProduct['imgs'][1]['img_url']['url'] neq ''"}
                                 <img style="float:left;" src="<?php echo $editProduct['imgs'][1]['img_url']['url']; ?>" width="220">
                                 {else /}

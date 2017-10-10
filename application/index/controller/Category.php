@@ -9,6 +9,7 @@
 namespace app\index\controller;
 
 
+use app\index\model\Image;
 use think\Controller;
 use app\index\model\Category as CategoryModel;
 
@@ -16,9 +17,54 @@ class Category extends Controller
 {
     public function getCate(){
         $cate = CategoryModel::getCate();
-//        return json($cate); die;
         $this->assign('cate',$cate);
         return view('lst');
     }
+
+    public function addCate(){
+        if (request()->isPost()){
+            $imageData = Image::oneUpload();
+            $data = input('post.');
+            $name = $data['name'];
+            $save = CategoryModel::addCate($name,$imageData[0]);
+            if ($save) {
+                $this->success('添加分类成功！',url('getCate'));
+            }else{
+                $this->error('添加分类成功');
+            }
+            return;
+        }
+        return view('add');
+    }
+
+    public function editCate($id){
+        $editCate = CategoryModel::getCateDetail($id);
+        $imgId = $editCate['img']['id'];
+        $this->assign('editCate',$editCate);
+        if (request()->isPost()){
+            $data = input('post.');
+            $imageData = Image::oneUpload();
+            $save = CategoryModel::editCate($data['id'],$data['name'],$imageData[0],$imgId);
+            if ($save) {
+                $this->success('更新分类成功！',url('getCate'));
+            }else{
+                $this->error('更新分类失败');
+            }
+            return;
+        }
+        return view('edit');
+    }
+
+    public function delCate($id){
+     $Category = CategoryModel::get($id);
+     $delImage = Image::destroy($Category['topic_img_id']);
+      $del = CategoryModel::delCate($id);
+      if ($del && $delImage){
+          $this->success('删除分类成功！',url('getCate'));
+      }else{
+          $this->error('删除分类失败');
+      }
+    }
+
 
 }
