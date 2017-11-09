@@ -18,7 +18,7 @@ class Product extends BaseModel
 
             if ($_FILES['main_img_url']['tmp_name']) {
                 $file = request()->file('main_img_url');
-                $info = $file->move('C:\wamp64\www\WeChatShop\public\images');
+                $info = $file->rule('uniqid')->move('C:\wamp64\www\WeChatShop\public\images');
                 if ($info) {
                     $main_img_url=$info->getSaveName();
                     $data['main_img_url'] = $main_img_url;
@@ -29,7 +29,7 @@ class Product extends BaseModel
         Product::event('before_update',function($data){
         if($_FILES['main_img_url']['tmp_name']){
             $file = request()->file('main_img_url');
-            $info = $file->move('C:\wamp64\www\WeChatShop\public\images');
+            $info = $file->rule('uniqid')->move('C:\wamp64\www\WeChatShop\public\images');
             if($info){
                 $main_img_url=$info->getSaveName();
                 $data['main_img_url'] = $main_img_url;
@@ -86,7 +86,12 @@ class Product extends BaseModel
     }
 
     public static function getAll(){
-        $products = self::with('cate')->select();
+        $products = self::with('cate')->order('id desc')->paginate(25);
+        return $products;
+    }
+
+    public static function getAllProduct(){
+        $products = self::with('cate')->order('id desc')->select();
         return $products;
     }
 

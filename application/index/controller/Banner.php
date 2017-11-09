@@ -8,45 +8,60 @@
 
 namespace app\index\controller;
 
-use app\index\model\BannerItem as BannerModel;
+use app\index\model\BannerItem as BannerItemModel;
 use app\index\model\Product as ProductModel;
+use app\index\model\Image as ImageModel;
 use think\Controller;
 
-class Banner extends Controller
+class Banner extends Base
 {
-    public function getBanner($id){
-
-
-        $banner = BannerModel::getBannerByID($id=1);
-
-//        return json($banner);die;
-//        var_dump($banner);die;
+    public function getBanner(){
+        $banner = BannerItemModel::getBannerByID($id=1);
         $this->assign('banner',$banner);
         return view('lst');
 
     }
 
     public function editBanner($id){
-//        if(request()->isPost()) {
-//            $data = input('post.');
-//            $banner = BannerModel::editBanner($data);
-//
-//            if ($banner !== false) {
-//                $this->success('修改栏目成功！', url('lst'));
-//            } else {
-//                $this->error('修改栏目失败！');
-//            }
-//            return;
-//        }
-        $banner = BannerModel::getBannerByProduct($id);
-        $product = ProductModel::getAll();
-//        return json($banner); die;
+
+         if (request()->isPost()){
+             $data = input('post.');
+//             var_dump($_FILES);die;
+             BannerItemModel::where('id',$data['id'])->update(['key_word' => $data['product_id']]);
+             if ($_FILES['Pimg']['name'] !=null){
+                 $imageData = ImageModel::oneUpload();
+                 ImageModel::update(['url' =>$imageData,'id'=>$data['img_id']]);
+             }
+
+             if ( $data) {
+                 $this->success('更新推荐成功！',url('getBanner'));
+             }else{
+                 $this->error('更新推荐失败');
+             }
+         }
+
+        $banner = BannerItemModel::getBannerByProduct($id);
+        $product = ProductModel::getAllProduct();
+//        return json($product);
+//        die;
         $this->assign(array(
             'banner'=>$banner,
             'product'=>$product,
         ));
-//        $this->assign('banner',$banner);
         return view('edit');
+    }
+
+    public function readBanner($id){
+
+        $banner = BannerItemModel::getBannerByProduct($id);
+        $product = ProductModel::getAllProduct();
+//        return json($product);
+//        die;
+        $this->assign(array(
+            'banner'=>$banner,
+            'product'=>$product,
+        ));
+        return view('read');
     }
 
 }

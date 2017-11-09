@@ -15,30 +15,25 @@ class Image extends BaseModel
 
    public static function upload(){
        $files = request()->file('Pimg');
-//       var_dump($files);die;
        $data = array();
        foreach($files as $file){
-//           var_dump($file);die;
            $info = $file->rule('uniqid')->move('C:\wamp64\www\WeChatShop\public\images');
            if ($info){
-
                      $url=$info->getSaveName();
                      $data[]=$url;
            }
        }
-
        return $data;
    }
 
     public static function oneUpload(){
         $file = request()->file('Pimg');
-            $info = $file->rule('uniqid')->move('C:\wamp64\www\WeChatShop\public\images');
+        $info = $file->rule('uniqid')->move('C:\wamp64\www\WeChatShop\public\images');
             if ($info){
-
                 $url=$info->getSaveName();
-                $data[]=$url;
+                $data =$url;
             }
-        return $data;
+            return $data;
     }
 
     public static function topicUpload(){

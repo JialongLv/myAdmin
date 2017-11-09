@@ -46,10 +46,8 @@ class Category extends BaseModel
        return $cate;
     }
 
-    public static function editCate($id,$name,$imageData,$imgId){
-        $image = new Image();
-        $image = $image::update(['url' =>$imageData,'id'=>$imgId]);
-        $cate = self::update(['name'=>$name,'topic_img_id'=>$image->id,'id'=>$id]);
+    public static function editCate($id,$name){
+        $cate = self::update(['name'=>$name,'id'=>$id]);
         return $cate;
     }
 

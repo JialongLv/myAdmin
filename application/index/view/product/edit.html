@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
-    <title>童老师ThinkPHP交流群：484519446</title>
+    <title>商品更新</title>
 
     <meta name="description" content="Dashboard">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,15 +50,15 @@
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
                                         <li>
-                        <a href="#">系统</a>
+                        <a href="#">外送商城商户控制台</a>
                     </li>
                                         <li>
-                        <a href="#">文章管理</a>
+                        <a href="#">商品管理</a>
                         <li>
-                            <a href="{:url('admin/lst')}">文章管理</a>
+                            <a href="{:url('admin/lst')}">商品管理</a>
                         </li>
                     </li>
-                                        <li class="active">添加文章</li>
+                                        <li class="active">商品更新</li>
                                         </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
@@ -70,7 +70,7 @@
     <div class="col-lg-12 col-sm-12 col-xs-12">
         <div class="widget">
             <div class="widget-header bordered-bottom bordered-blue">
-                <span class="widget-caption">添加文章</span>
+                <span class="widget-caption">商品更新</span>
             </div>
             <div class="widget-body">
                 <div id="horizontal-form">
@@ -103,9 +103,13 @@
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">品名</label>
                             <div class="col-sm-6">
-                                <input class="form-control"  placeholder=""  value="<?php echo $editProduct['properties'][0]['detail']; ?>" name="Pname"  type="int">
+                                <?php if(isset($editProduct['properties'][0]['detail'])): ?>
+                                <input class="form-control"  placeholder=""  value="<?php echo $editProduct['properties'][0]['detail']; ?>" name="Pname"  >
+                                <?php else: ?>
+                                <input class="form-control"  placeholder=""  name="Pname"  type="int">
+                                <?php endif; ?>
+
                             </div>
-                            <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
 
 
@@ -113,25 +117,36 @@
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">产地</label>
                             <div class="col-sm-6">
+                                <?php if(isset($editProduct['properties'][1]['detail'])): ?>
                                 <input class="form-control"  placeholder="" value="<?php echo $editProduct['properties'][1]['detail']; ?>" name="where"  type="int">
+                                <?php else: ?>
+                                <input class="form-control"  placeholder=""   name="where"  type="int">
+                                <?php endif; ?>
                             </div>
-                            <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
 
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">净含量</label>
                             <div class="col-sm-6">
+                                <?php if(isset($editProduct['properties'][2]['detail'])): ?>
                                 <input class="form-control"  placeholder="" value="<?php echo $editProduct['properties'][2]['detail']; ?>" name="weight"  type="int">
+                                <?php else: ?>
+                                <input class="form-control"  placeholder=""   name="weight"  type="int">
+                                <?php endif; ?>
                             </div>
-                            <p class="help-block col-sm-4 red">* 必填</p>
+
                         </div>
 
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">保质期</label>
                             <div class="col-sm-6">
+                                <?php if(isset($editProduct['properties'][2]['detail'])): ?>
                                 <input class="form-control"  placeholder="" value="<?php echo $editProduct['properties'][3]['detail']; ?>" name="period"  type="int">
+                                <?php else: ?>
+                                <input class="form-control"  placeholder=""   name="period"  type="int">
+                                <?php endif; ?>
                             </div>
-                            <p class="help-block col-sm-4 red">* 必填</p>
+
                         </div>
 
 
@@ -140,7 +155,7 @@
                             <div class="col-sm-6">
                                 <select name="category_id">
                                     {volist name="cateres" id="cate"}
-                                    <option {if condition="$cate['id'] eq $editProduct.category_id"}selected="selected"{/if} value="{$editProduct.category_id}">{$cate.name}</option>
+                                    <option {if condition="$cate['id'] eq $editProduct.category_id"}selected="selected"{/if} value="{$cate.id}">{$cate.name}</option>
                                     {/volist}
                                 </select>
                             </div>
@@ -165,12 +180,13 @@
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">商品介绍图</label>
                             <div class="col-sm-6">
-                                <input style="float:left;"  placeholder="" name="Pimg[]" value="<?php echo $editProduct['imgs'][0]['img_url']['url']; ?>" type="file" >
-                                {if condition="$editProduct['imgs'][0]['img_url']['url'] neq ''"}
+                                <input style="float:left;"  placeholder="" name="Pimg[]" value="" type="file" >
+
+                                <?php if(isset($editProduct['imgs'][0]['img_url']['url'])): ?>
                                 <img style="float:left;" src="<?php echo $editProduct['imgs'][0]['img_url']['url']; ?>" width="220">
-                                {else /}
+                                <?php else: ?>
                                 暂无缩略图
-                                {/if}
+                                <?php endif; ?>
                             </div>
 
                         </div>
@@ -178,37 +194,15 @@
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">商品介绍图</label>
                             <div class="col-sm-6">
-                                <input style="float:left;"  placeholder="" name="Pimg[]" value="<?php echo $editProduct['imgs'][1]['img_url']['url']; ?>" type="file" >
-                                {if condition="$editProduct['imgs'][1]['img_url']['url'] neq ''"}
+                                <input style="float:left;"  placeholder="" name="Pimg[]" value=" " type="file" >
+                                <?php if(isset($editProduct['imgs'][1]['img_url']['url'])): ?>
                                 <img style="float:left;" src="<?php echo $editProduct['imgs'][1]['img_url']['url']; ?>" width="220">
-                                {else /}
+                                <?php else: ?>
                                 暂无缩略图
-                                {/if}
+                                <?php endif; ?>
                             </div>
 
                         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">

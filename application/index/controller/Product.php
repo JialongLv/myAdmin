@@ -17,7 +17,7 @@ use app\index\model\Category as CategoryModel;
 use app\index\model\ProductProperty as ProductPropertyModel;
 use app\index\model\ProductImage as ProductImageModel;
 
-class Product extends Controller
+class Product extends Base
 {
     public function getProduct(){
         $product = ProductModel::getAll();
@@ -30,13 +30,14 @@ class Product extends Controller
 
             $data=input('post.');
             $Product=new ProductModel();
-
+            $data['create_time'] = date("Y-m-d");
             $Product->data([
                 'name' => $data['name'],
                 'price'=> $data['price'],
                 'stock'=> $data['stock'],
                 'category_id'=> $data['category_id'],
-                'main_img_url'=> $_FILES['main_img_url']['name']
+                'main_img_url'=> $_FILES['main_img_url']['name'],
+                'create_time' => $data['create_time']
             ]);
             $save=$Product->save();
 
@@ -90,6 +91,8 @@ class Product extends Controller
     public function editProduct($id){
         if (request()->isPost()) {
             $data=input('post.');
+//            var_dump($data);die;
+//             return json($data['category_id']);die;
             $Product = new ProductModel();
             $save = $Product::update(['id'=>$data['id'],'name' => $data['name'],
                 'price'=> $data['price'],
@@ -106,6 +109,14 @@ class Product extends Controller
                 ['id'=>$ProductPropertyId[3]['id'],'name'=>'保质期', 'detail' => $data['period'],'product_id'=>$data['id']],
             ];
             $ProductPropertySave = $ProductProperty->saveAll($list);
+//            $ProductProperty = new ProductPropertyModel();
+//            $list = [
+//                ['name'=>'品名', 'detail' => $data['Pname'], 'product_id'=>$data['id']],
+//                ['name'=>'产地', 'detail' => $data['where'], 'product_id'=>$data['id']],
+//                ['name'=>'净含量', 'detail' => $data['weight'], 'product_id'=>$data['id']],
+//                ['name'=>'保质期', 'detail' => $data['period'], 'product_id'=>$data['id']],
+//            ];
+//            $ProductPropertySave = $ProductProperty->saveAll($list);
            $imgIds = ProductImageModel::getImgUrl($data['id']);
             $imgUrls = Image::upload();
             if ($imgUrls){

@@ -13,7 +13,7 @@ use app\index\model\Image;
 use think\Controller;
 use app\index\model\Category as CategoryModel;
 
-class Category extends Controller
+class Category extends Base
 {
     public function getCate(){
         $cate = CategoryModel::getCate();
@@ -26,7 +26,7 @@ class Category extends Controller
             $imageData = Image::oneUpload();
             $data = input('post.');
             $name = $data['name'];
-            $save = CategoryModel::addCate($name,$imageData[0]);
+            $save = CategoryModel::addCate($name,$imageData);
             if ($save) {
                 $this->success('添加分类成功！',url('getCate'));
             }else{
@@ -43,8 +43,12 @@ class Category extends Controller
         $this->assign('editCate',$editCate);
         if (request()->isPost()){
             $data = input('post.');
-            $imageData = Image::oneUpload();
-            $save = CategoryModel::editCate($data['id'],$data['name'],$imageData[0],$imgId);
+            if ($_FILES['Pimg']['name'] !=null){
+                $image = new Image();
+                $imageData = Image::oneUpload();
+                $image::update(['url' =>$imageData,'id'=>$imgId]);
+            }
+            $save = CategoryModel::editCate($data['id'],$data['name']);
             if ($save) {
                 $this->success('更新分类成功！',url('getCate'));
             }else{

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
-    <title>童老师ThinkPHP交流群：484519446</title>
+    <title>专题商品添加</title>
 
     <meta name="description" content="Dashboard">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,15 +50,13 @@
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
                                         <li>
-                        <a href="#">系统</a>
+                        <a href="#">外送商城商户控制台</a>
                     </li>
                                         <li>
-                        <a href="#">文章管理</a>
-                        <li>
-                            <a href="{:url('admin/lst')}">文章管理</a>
-                        </li>
+                        <a href="{:url('Theme/getTheme')}">专题管理</a>
+
                     </li>
-                                        <li class="active">添加文章</li>
+                                        <li class="active">专题商品添加</li>
                                         </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
@@ -75,20 +73,26 @@
             <div class="widget-body">
                 <div id="horizontal-form">
                     <form class="form-horizontal" role="form" action="{:url('Theme/addProduct')}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="{$id}">
                      <div class="form-group">
-                            <label for="username" class="col-sm-2 control-label no-padding-right">分类名称</label>
+                            <label for="username" class="col-sm-2 control-label no-padding-right">专题名称</label>
                             <div class="col-sm-6">
-                                <input class="form-control"  placeholder="" name="name"  type="text">
+                                <label class="form-control" >专题{$id}</label>
                             </div>
                             <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
 
-                         <div class="form-group">
-                            <label for="username" class="col-sm-2 control-label no-padding-right">分类首图</label>
+                        <div class="form-group">
+                            <label for="cateid" class="col-sm-2 control-label no-padding-right">选择商品</label>
                             <div class="col-sm-6">
-                                <input   placeholder="" name="Pimg"  type="file">
+                                <select name="product_id">
+
+                                    {volist name='product' id="pro"}
+                                    <option value="{$pro.id}">{$pro.name}</option>
+                                    {/volist}
+                                </select>
                             </div>
-                            
+                            <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
 
                         <div class="form-group">

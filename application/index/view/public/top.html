@@ -5,7 +5,7 @@
             <div class="navbar-header pull-left">
                 <a href="#" class="navbar-brand">
                     <small>
-                            <img src="__ADMIN__/images/logo.png" alt="">
+                        <a href="{:url('index/index')}"> <img src="__ADMIN__/images/logo.png" width="200" height="44"></a>
                         </small>
                 </a>
             </div>
@@ -25,20 +25,15 @@
                                     <img src="__ADMIN__/images/adam-jansen.jpg">
                                 </div>
                                 <section>
-                                    <h2><span class="profile"><span>{$Request.session.name}</span></span></h2>
+                                    <h2><span class="profile"><span>{$Request.session.username}</span></span></h2>
                                 </section>
                             </a>
                             <!--Login Area Dropdown-->
                             <ul class="pull-right dropdown-menu dropdown-arrow dropdown-login-area">
-                                <li class="username"><a>David Stevenson</a></li>
+                                <li class="username"><a>jialong</a></li>
                                 <li class="dropdown-footer">
-                                    <a href="{:url('admin/logout')}">
+                                    <a href="{:url('Login/logout')}">
                                             退出登录
-                                        </a>
-                                </li>
-                                <li class="dropdown-footer">
-                                    <a href="{:url('admin/edit',array('id'=>$Request.session.id))}">
-                                            修改密码
                                         </a>
                                 </li>
                             </ul>

@@ -13,8 +13,9 @@ use think\Controller;
 use app\index\model\Theme as ThemeModel;
 use app\index\model\Image as ImageModel;
 use app\index\model\ThemeProduct as ThemeProductModel;
+use app\index\model\Product as ProductModel;
 
-class Theme extends Controller
+class Theme extends Base
 {
     public function getTheme(){
         $theme = ThemeModel::getTheme();
@@ -36,20 +37,17 @@ class Theme extends Controller
             if ($data){
                ThemeModel::where('id', $id)
                     ->update(['description' => $data['description']]);
-
             }
 
             if ($_FILES['topic_img']['name'] != null){
               $Topic = ImageModel::topicUpload();
               $TopicImage = new ImageModel();
               $TopicImage::update(['url' =>$Topic,'id'=>$themes['topic_img_id']]);
-
             }
             if ($_FILES['head_img']['name']  != null){
               $Head = ImageModel::headUpload();
                 $HeadImage = new ImageModel();
                 $HeadImage::update(['url' =>$Head,'id'=>$themes['head_img_id']]);
-
             }
            $data = input('post.');
 
@@ -67,14 +65,37 @@ class Theme extends Controller
       $del = ThemeProductModel::delProduct($id,$productId);
       if ($del){
 
-          $this->success('移除商品成功！',url('getTheme'));
+          $this->success('移除商品成功！',url('getThemeDetail',['id' =>$id]));
       }else{
           $this->error('移除商品失败');
       }
     }
 
-    public function addProduct(){
-
+    public function addProduct($id){
+        $ThemeProduct = ThemeProductModel::all($id);
+        $product = array();
+        foreach ($ThemeProduct as $k =>$value){
+            $product[] = $value['product_id'];
+        }
+        if (request()->isPost()){
+            $data = input('post.');
+            $product_id = $data['product_id'];
+            if (in_array($product_id,$product)){
+                $this->error('添加的商品已经存在');
+            }else{
+                ThemeProductModel::create([
+                    'theme_id'  =>  $id,
+                    'product_id' =>$product_id
+                ]);
+                $this->success('添加商品成功',url('getThemeDetail',['id' =>$id]));
+            }
+        }
+        $product = ProductModel::All();
+        $this->assign(array(
+            'id'=>$id,
+            'product'=>$product,
+        ));
+        return view('add');
     }
 
 }
