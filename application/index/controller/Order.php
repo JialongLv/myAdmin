@@ -19,6 +19,7 @@ class Order extends Base
         $OrderModel = new OrderModel();
         $AllOrder = $OrderModel->order('id desc')->paginate(25);
         $this->assign('AllOrder',$AllOrder);
+//        return json($AllOrder);die;
         return view('lst');
     }
 

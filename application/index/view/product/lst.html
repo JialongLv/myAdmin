@@ -8,33 +8,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!--Basic Styles-->
-    <link href="__ADMIN__ /style/bootstrap.css" rel="stylesheet">
-    <link href="__ADMIN__ /style/font-awesome.css" rel="stylesheet">
-    <link href="__ADMIN__ /style/weather-icons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
 
     <!--Beyond styles-->
-    <link id="beyond-link" href="__ADMIN__ /style/beyond.css" rel="stylesheet" type="text/css">
-    <link href="__ADMIN__ /style/demo.css" rel="stylesheet">
-    <link href="__ADMIN__ /style/typicons.css" rel="stylesheet">
-    <link href="__ADMIN__ /style/animate.css" rel="stylesheet">
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
     
 </head>
 <body>
 	<!-- 头部 -->
 	{include file="public/top"/}
-
 	<!-- /头部 -->
-	
 	<div class="main-container container-fluid">
 		<div class="page-container">
 			            <!-- Page Sidebar -->
-            <div class="page-sidebar" id="sidebar">
-                <!-- Page Sidebar Header-->
-                <div class="sidebar-header-wrapper">
-                    <input class="searchinput" type="text">
-                    <i class="searchicon fa fa-search"></i>
-                    <div class="searchhelper">Search Reports, Charts, Emails or Notifications</div>
-                </div>
+            
                 <!-- /Page Sidebar Header -->
                 <!-- Sidebar Menu -->
                  {include file="public/left" /}
@@ -47,7 +39,7 @@
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
                                         <li>
-                        <a href="#">外送商城商户控制台</a>
+                        <a href="{:url('index/index')}">外送商城商户控制台</a>
                     </li>
                                         <li class="active">商品管理</li>
                                         </ul>
@@ -100,7 +92,7 @@
                                 <a href="{:url('editProduct',array('id'=>$pro.id))}" class="btn btn-primary btn-sm shiny">
                                     <i class="fa fa-edit"></i> 更新
                                 </a>
-                                <a href="{:url('del',array('id'=>$pro.id))}" onClick="warning('确实要删除该商品吗？', '#')" class="btn btn-danger btn-sm shiny">
+                                <a href="#" onClick="warning('确实要删除该商品吗？', '{:url('del',array('id'=>$pro.id))}')" class="btn btn-danger btn-sm shiny">
                                     <i class="fa fa-trash-o"></i> 删除
                                 </a>
                             </td>
@@ -118,7 +110,7 @@
                 </div>
                 <div>
 
-                	                </div>
+                </div>
             </div>
         </div>
     </div>
@@ -132,11 +124,11 @@
 	</div>
 
 	    <!--Basic Scripts-->
-    <script src="__ADMIN__ /style/jquery_002.js"></script>
-    <script src="__ADMIN__ /style/bootstrap.js"></script>
-    <script src="__ADMIN__ /style/jquery.js"></script>
+    <script src="__ADMIN__/style/jquery_002.js"></script>
+    <script src="__ADMIN__/style/bootstrap.js"></script>
+    <script src="__ADMIN__/style/jquery.js"></script>
     <!--Beyond Scripts-->
-    <script src="__ADMIN__ /style/beyond.js"></script>
+    <script src="__ADMIN__/style/beyond.js"></script>
     
 
 

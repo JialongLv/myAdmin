@@ -72,7 +72,8 @@ class Theme extends Base
     }
 
     public function addProduct($id){
-        $ThemeProduct = ThemeProductModel::all($id);
+        $ThemeProduct = new ThemeProductModel();
+        $ThemeProduct = $ThemeProduct->where('theme_id',$id)->select();
         $product = array();
         foreach ($ThemeProduct as $k =>$value){
             $product[] = $value['product_id'];

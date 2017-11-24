@@ -11,6 +11,7 @@ namespace app\index\controller;
 use app\index\model\BannerItem as BannerItemModel;
 use app\index\model\Product as ProductModel;
 use app\index\model\Image as ImageModel;
+use app\index\validate\Banner as BannerValidate;
 use think\Controller;
 
 class Banner extends Base
@@ -23,7 +24,6 @@ class Banner extends Base
     }
 
     public function editBanner($id){
-
          if (request()->isPost()){
              $data = input('post.');
 //             var_dump($_FILES);die;

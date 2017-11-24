@@ -8,15 +8,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!--Basic Styles-->
-    <link href="__ADMIN__ /style/bootstrap.css" rel="stylesheet">
-    <link href="__ADMIN__ /style/font-awesome.css" rel="stylesheet">
-    <link href="__ADMIN__ /style/weather-icons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
 
     <!--Beyond styles-->
-    <link id="beyond-link" href="__ADMIN__ /style/beyond.css" rel="stylesheet" type="text/css">
-    <link href="__ADMIN__ /style/demo.css" rel="stylesheet">
-    <link href="__ADMIN__ /style/typicons.css" rel="stylesheet">
-    <link href="__ADMIN__ /style/animate.css" rel="stylesheet">
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
     
 </head>
 <body>
@@ -47,9 +47,12 @@
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
                                         <li>
-                        <a href="#">系统</a>
+                        <a href="{:url('index/index')}">外送商城商户控制台</a>
                     </li>
-                                        <li class="active">推荐管理</li>
+                        <li>
+                            <a href="{:url('Theme/getTheme')}">专题管理</a>
+                        </li>
+                                        <li class="active">专题商品类表</li>
                                         </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
@@ -95,7 +98,7 @@
                             </td>
 
                             <td align="center" style="vertical-align: middle;">
-                                <a href="{:url('delProduct',array('id'=>$themes.id,'$productId'=>$product.id))}"  class="btn btn-danger btn-sm shiny">
+                                <a href="#" onClick="warning('确实要移除除该商品吗？', '{:url('delProduct',array('id'=>$themes.id,'$productId'=>$product.id))}')" class="btn btn-danger btn-sm shiny">
                                     <i class="fa fa-trash-o"></i> 移除
                                 </a>
                             </td>
@@ -126,11 +129,11 @@
 	</div>
 
 	    <!--Basic Scripts-->
-    <script src="__ADMIN__ /style/jquery_002.js"></script>
-    <script src="__ADMIN__ /style/bootstrap.js"></script>
-    <script src="__ADMIN__ /style/jquery.js"></script>
+    <script src="__ADMIN__/style/jquery_002.js"></script>
+    <script src="__ADMIN__/style/bootstrap.js"></script>
+    <script src="__ADMIN__/style/jquery.js"></script>
     <!--Beyond Scripts-->
-    <script src="__ADMIN__ /style/beyond.js"></script>
+    <script src="__ADMIN__/style/beyond.js"></script>
     
 
 

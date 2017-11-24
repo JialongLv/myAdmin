@@ -12,6 +12,7 @@ namespace app\index\controller;
 use app\index\model\Image;
 use think\Controller;
 use app\index\model\Category as CategoryModel;
+use app\index\Validate\Category as CategoryValidate;
 
 class Category extends Base
 {
@@ -22,9 +23,14 @@ class Category extends Base
     }
 
     public function addCate(){
+
         if (request()->isPost()){
             $imageData = Image::oneUpload();
             $data = input('post.');
+            $validate = \think\Loader::validate('Category');
+            if(!$validate->check($data)){
+                $this->error($validate->getError());
+            }
             $name = $data['name'];
             $save = CategoryModel::addCate($name,$imageData);
             if ($save) {
@@ -43,6 +49,10 @@ class Category extends Base
         $this->assign('editCate',$editCate);
         if (request()->isPost()){
             $data = input('post.');
+            $validate = \think\Loader::validate('Category');
+            if(!$validate->check($data)){
+                $this->error($validate->getError());
+            }
             if ($_FILES['Pimg']['name'] !=null){
                 $image = new Image();
                 $imageData = Image::oneUpload();

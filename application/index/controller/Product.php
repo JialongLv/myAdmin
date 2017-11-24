@@ -29,6 +29,10 @@ class Product extends Base
         if (request()->isPost()) {
 
             $data=input('post.');
+            $validate = \think\Loader::validate('Product');
+            if(!$validate->check($data)){
+                $this->error($validate->getError());
+            }
             $Product=new ProductModel();
             $data['create_time'] = date("Y-m-d");
             $Product->data([
@@ -80,7 +84,7 @@ class Product extends Base
         $ProductDel = ProductModel::destroy(input('id'));
         $ProductPropertyDel = ProductPropertyModel::destroy(['product_id' =>input('id')]);
         $ProductImage = ProductImageModel::delImgUrl(input('id'));
-        if ($ProductDel && $ProductPropertyDel && $ProductImage){
+        if ($ProductDel && $ProductPropertyDel ){
             $this->success('删除商品成功',url('getProduct'));
         }else{
             $this->error('删除商品失败');
@@ -91,6 +95,10 @@ class Product extends Base
     public function editProduct($id){
         if (request()->isPost()) {
             $data=input('post.');
+            $validate = \think\Loader::validate('Product');
+            if(!$validate->check($data)){
+                $this->error($validate->getError());
+            }
 //            var_dump($data);die;
 //             return json($data['category_id']);die;
             $Product = new ProductModel();
